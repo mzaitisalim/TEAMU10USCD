@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>USCD U10 - Accueil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo-zone">
+    <img src="logo.png" class="logo" alt="Logo USCD">
+  </div>
+  <nav class="main-nav">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="effectif.html">Effectif</a>
+    <a href="homme.html">Homme de séance</a>
+    <a href="voix.html">Voix du peuple</a>
+    <a href="jonglage.html">Jonglage</a>
+    <a href="galeries.html">Galeries Photos</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" style="
+    height: 260px;
+    background: url('U10ARCDECERCLE.JPG') center/cover no-repeat;
+    position: relative;
+    box-shadow: 0 0 25px #6a00ff;
+  ">
+    <div style="
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      font-size: 32px;
+      font-weight: 700;
+      text-shadow: 0 0 12px #0099ff;
+    ">
+      USCD U10
+    </div>
+  </section>
+
+  <section class="home-main">
+    <h2 class="glow">Bienvenue sur le site des U10</h2>
+
+    <p style="text-align:center; max-width:700px; margin: 0 auto; opacity:0.9;">
+      Le site officiel des U10 de l’USCD.  
+      Retrouvez l’effectif, les classements, les défis et toute la fierté du club.
+    </p>
+
+    <div class="home-grid" style="margin-top:30px;">
+      
+      <article class="home-card" style="
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #6a00ff;
+        backdrop-filter: blur(6px);
+        transition: 0.2s;
+      " onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='scale(1)'">
+        <h3 class="glow">Effectif</h3>
+        <p>Découvre les joueurs de la saison.</p>
+        <a href="effectif.html" class="btn">Voir l’effectif</a>
+      </article>
+
+      <article class="home-card" style="
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #6a00ff;
+        backdrop-filter: blur(6px);
+        transition: 0.2s;
+      " onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='scale(1)'">
+        <h3 class="glow">Homme de séance</h3>
+        <p>Le classement officiel du coach.</p>
+        <a href="homme.html" class="btn">Voir le classement</a>
+      </article>
+
+      <article class="home-card" style="
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #6a00ff;
+        backdrop-filter: blur(6px);
+        transition: 0.2s;
+      " onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='scale(1)'">
+        <h3 class="glow">Voix du peuple</h3>
+        <p>Le classement des supporters.</p>
+        <a href="voix.html" class="btn">Voir le classement</a>
+      </article>
+
+      <article class="home-card" style="
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #6a00ff;
+        backdrop-filter: blur(6px);
+        transition: 0.2s;
+      " onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='scale(1)'">
+        <h3 class="glow">Défis jonglage</h3>
+        <p>Les records et performances.</p>
+        <a href="jonglage.html" class="btn">Voir les scores</a>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>USCD U10 - Dijon • Site pour les joueurs et leurs familles.</p>
+</footer>
+
+</body>
+</html>

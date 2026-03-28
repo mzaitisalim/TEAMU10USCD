@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>USCD U10 - Admin classements</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-wrap { max-width: 900px; margin: 30px auto; background: rgba(15,23,42,0.95); padding: 20px; border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .admin-section { margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.5); }
+    .admin-grid { display: grid; grid-template-columns: 1.5fr 0.7fr; gap: 8px; margin-top: 10px; }
+    .admin-grid div { padding: 6px 8px; border-radius: 8px; background: rgba(15,23,42,0.9); font-size: 0.85rem; }
+    .admin-grid input { width: 100%; padding: 4px 6px; border-radius: 6px; border: 1px solid rgba(148,163,184,0.8); background: #020617; color: #f9fafb; }
+    .admin-btn { margin-top: 10px; padding: 8px 14px; border-radius: 999px; border: none; cursor: pointer; background: linear-gradient(90deg, #d7263d, #0050b3); color: #fff; font-weight: 600; }
+    .login-box { max-width: 360px; margin: 60px auto; padding: 20px; background: rgba(15,23,42,0.95); border-radius: 14px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+    .login-box input { width: 100%; padding: 8px; margin-top: 10px; border-radius: 8px; border: 1px solid rgba(148,163,184,0.8); background: #020617; color: #f9fafb; }
+    .error { color: #f97373; font-size: 0.8rem; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo-zone">
+    <img src="assets/logo-uscd.png" class="logo" alt="Logo USCD">
+    <div class="club-text">
+      <h1>USCD U10</h1>
+      <p>Admin classements</p>
+    </div>
+  </div>
+</header>
+
+<main id="admin-main">
+
+  <div id="login" class="login-box">
+    <h2>Connexion coach</h2>
+    <p>Entre le mot de passe pour modifier les classements.</p>
+    <input type="password" id="pwd" placeholder="Mot de passe">
+    <button class="admin-btn" onclick="checkPwd()">Se connecter</button>
+    <div id="err" class="error"></div>
+  </div>
+
+</main>
+
+<script>
+  const PASSWORD = "uscd10";
+
+  const players = [
+    "KUFUA PRESTON",
+    "ZAHIM MOHAMED",
+    "BAYO CETY",
+    "NEDELLEC GABRIEL",
+    "LAMKADDAM RAYAN",
+    "OUCHABOUNE RAYANE",
+    "CHARMATI ADAM",
+    "GAINSA YLLAN",
+    "HELFER HUGO",
+    "FOFANA KARAMBA",
+    "CLERICE KEVIN",
+    "BABAYAN SAMUEL",
+    "ZOUGAGH ISMAEL",
+    "BENHAMOU OMAR",
+    "BALDÉ BACHIR"
+  ];
+
+  function checkPwd() {
+    const val = document.getElementById('pwd').value;
+    const err = document.getElementById('err');
+    if (val === PASSWORD) {
+      showAdmin();
+    } else {
+      err.textContent = "Mot de passe incorrect.";
+    }
+  }
+
+  function getStored(key) {
+    const raw = localStorage.getItem(key);
+    if (!raw) return Array(players.length).fill(0);
+    try {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr) && arr.length === players.length) return arr;
+      return Array(players.length).fill(0);
+    } catch {
+      return Array(players.length).fill(0);
+    }
+  }
+
+  function buildSection(title, key, container) {
+    const points = getStored(key);
+    const section = document.createElement('div');
+    section.className = 'admin-section';
+
+    const h3 = document.createElement('h3');
+    h3.textContent = title;
+    section.appendChild(h3);
+
+    const grid = document.createElement('div');
+    grid.className = 'admin-grid';
+
+    players.forEach((name, i) => {
+      const nameDiv = document.createElement('div');
+      nameDiv.textContent = name;
+      const inputDiv = document.createElement('div');
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.min = '0';
+      input.value = points[i];
+      input.dataset.index = i;
+      inputDiv.appendChild(input);
+      grid.appendChild(nameDiv);
+      grid.appendChild(inputDiv);
+    });
+
+    section.appendChild(grid);
+
+    const btn = document.createElement('button');
+    btn.className = 'admin-btn';
+    btn.textContent = "Enregistrer " + title;
+    btn.onclick = () => {
+      const inputs = grid.querySelectorAll('input');
+      const newPoints = Array(players.length).fill(0);
+      inputs.forEach(inp => {
+        const idx = parseInt(inp.dataset.index, 10);
+        newPoints[idx] = parseInt(inp.value || "0", 10);
+      });
+      localStorage.setItem(key, JSON.stringify(newPoints));
+      alert("Classement \"" + title + "\" enregistré.");
+    };
+    section.appendChild(btn);
+
+    container.appendChild(section);
+  }
+
+  function showAdmin() {
+    const main = document.getElementById('admin-main');
+    main.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'admin-wrap';
+
+    const h2 = document.createElement('h2');
+    h2.textContent = "Panneau coach – Classements U10";
+    wrap.appendChild(h2);
+
+    const p = document.createElement('p');
+    p.textContent = "Modifie les points puis clique sur \"Enregistrer\" pour chaque classement. Les pages publiques se mettront à jour automatiquement sur ce navigateur.";
+    wrap.appendChild(p);
+
+    buildSection("Homme de séance", "classement_homme", wrap);
+    buildSection("Voix du peuple", "classement_voix", wrap);
+    buildSection("Défis jonglage", "classement_jonglage", wrap);
+
+    main.appendChild(wrap);
+  }
+</script>
+
+</body>
+</html>
